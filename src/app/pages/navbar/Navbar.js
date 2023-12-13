@@ -16,6 +16,9 @@ function Navbar() {
             <Link to="/about" className="text-white mx-4">
               About
             </Link>
+            <Link to="/help" className="text-white mx-4">
+              Help
+            </Link>
             <Link to="/contact" className="text-white mx-4">
               Contact
             </Link>
