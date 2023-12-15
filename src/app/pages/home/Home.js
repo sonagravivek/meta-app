@@ -20,7 +20,7 @@ function Home() {
           <div className="absolute bg-black opacity-50 inset-0"></div>
           <div className="text-center text-white z-10">
             <h1 className="text-4xl font-bold mb-4">Make Your Journey</h1>
-            <p className="text-lg">Explore the world with our amazing place.</p>
+            {/* <p className="text-lg">Explore the world with our amazing place.</p> */}
           </div>
         </div>
 
