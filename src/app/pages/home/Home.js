@@ -1,46 +1,61 @@
-import React, { useEffect, useState } from "react";
-import placesData from "../../utils/ placesData.json";
+import React from "react";
 import PlaceCard from "./PlaceCard";
 
 function Home() {
-  const [place, setPlace] = useState([]);
-  useEffect(() => {
-    setPlace(placesData);
-  }, []);
   return (
     <>
-      <div className="bg-gray-100  h-screen">
+      <h1 className="font-extrabold text-4xl py-4 text-gray-700 text-center">
+        Home Page
+      </h1>
+      <div className="bg-gray-100">
         <div
-          className="h-64 bg-cover bg-center relative flex items-center justify-center"
+          className="h-96 bg-cover bg-center relative flex items-center justify-center"
           style={{
             backgroundImage:
-              "url(https://images.unsplash.com/photo-1500622944204-b135684e99fd?q=80&w=1461&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)",
+              "url(https://images.pexels.com/photos/6638603/pexels-photo-6638603.jpeg?auto=compress&cs=tinysrgb&w=600)",
           }}
         >
           <div className="absolute bg-black opacity-50 inset-0"></div>
           <div className="text-center text-white z-10">
-            <h1 className="text-4xl font-bold mb-4">Make Your Journey</h1>
+            <h1 className="text-4xl font-bold mb-4">
+              Make Your Journey In Gujrat
+            </h1>
             {/* <p className="text-lg">Explore the world with our amazing place.</p> */}
           </div>
         </div>
+      </div>
 
-        {place.map((place, index) => (
-          <div key={index}>
-<div class="grid grid-rows-4 grid-flow-col gap-4">
-              <PlaceCard
-                title="{place.title}"
-                description="{place.description}"
-                imageUrl="https://media.istockphoto.com/id/1224021113/photo/indian-cameleers-camel-driver-with-camel-silhouettes-in-dunes-on-sunset-jaisalmer-rajasthan.jpg?s=612x612&w=0&k=20&c=MeF2Dl4ya1NVOWM_I_xo3EPd8E-iazBghYhjiyRaTcU="
-              />
-            </div>
-          </div>
-        ))}
-
-        <div className="container mx-auto mt-8 text-center">
-          <button className="bg-blue-500 text-white py-2 px-6 rounded-full">
-            Get Started
-          </button>
+      <div className="flex mt-6">
+        <div className=" rounded-md bg-cover flex bg-center relative  items-center justify-center md:w-1/3 p-5 transition duration-300 ease-in-out transform hover:scale-105 focus:scale-105">
+          <PlaceCard
+            alt="user"
+            title="Somnath"
+            description="Shree Somnath is first among the twelve Aadi Jyotirlings of India. It has a strategic location on the western coast of India. The Pran-Pratistha at the existing temple was done on 11th May 1951 by then President of India."
+            imageUrl="somnath-temple-compound-21530508.jpg"
+          />
         </div>
+        <div className=" rounded-md bg-cover flex bg-center relative  items-center justify-center md:w-1/3 p-5 transition duration-300 ease-in-out transform hover:scale-105 focus:scale-105">
+          <PlaceCard
+            alt="user"
+            title="Dwarka"
+            description="The main draw for tourists coming to Dwarka, the Dwarkadhish Temple (Jagat Mandir), is believed to have been established more than 2500 years ago by Lord Krishna’s great grandson, Vajranabh. The ancient temple of India."
+            imageUrl="Dwarka.jpg"
+          />
+        </div>
+        <div className=" rounded-md bg-cover flex bg-center relative  items-center justify-center md:w-1/3 p-5 transition duration-300 ease-in-out transform hover:scale-105 focus:scale-105">
+          <PlaceCard
+            alt="user"
+            title="Nageshwar"
+            description="Nageshwara Jyotirlinga is one of the twelve Jyotirlings, which are temples devoted to Shiva,located in Aundha Nagnath, Hingoli, Maharshtra. Some individuals believe that the Dwarka Shivalinga in gujrat represents the Nageshwara Jyotirlinga"
+            imageUrl="Nageshwar.jpg"
+          />
+        </div>
+      </div>
+
+      <div className="container mx-auto mb-10 mt-8 text-center">
+        <button className="bg-blue-500 text-white py-2 px-6 rounded-full">
+          Get Started
+        </button>
       </div>
     </>
   );

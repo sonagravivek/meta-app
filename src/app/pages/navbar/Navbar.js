@@ -7,7 +7,7 @@ function Navbar() {
       <nav className= " flex bg-gray-800 p-4">
         <div className=" flex container mx-auto">
           <Link to="/" className="text-white font-bold text-xl">
-            ALgo
+            Algo
           </Link>
           <div className="flex ml-auto text-end">
             <Link to="/" className="text-white mx-4">
