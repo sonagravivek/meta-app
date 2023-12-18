@@ -1,8 +1,8 @@
 import "./App.css";
-<<<<<<< HEAD
+
 import MainApp from "./app/index";
 import { BrowserRouter as Router } from "react-router-dom";
-=======
+
 import { Routes, Route } from "react-router-dom";
 import Navbar from "./componet/Navbar";
 const Home = () => (
@@ -20,7 +20,7 @@ const Contact = () => (
     Contact Page
   </div>
 );
->>>>>>> e48df72864919162e79c76aa84a12beece010eae
+
 
 function App() {
   return (
