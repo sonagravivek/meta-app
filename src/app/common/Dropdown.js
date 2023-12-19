@@ -1,6 +1,4 @@
-import { Formik } from "formik";
 import React, { useState } from "react";
-
 
 const Dropdown = () => {
   const [dropdowns, setDropdowns] = useState([
@@ -40,6 +38,7 @@ const Dropdown = () => {
     );
     setDropdowns(updatedDropdowns);
   };
+
   const addDropdown = () => {
     setDropdowns([
       ...dropdowns,
@@ -52,12 +51,10 @@ const Dropdown = () => {
     ]);
   };
 
-    return (
-        <>
-      <Formik>  
+  return (
     <div className="flex-none">
       {dropdowns.map((dropdown, index) => (
-        <div className="relative inline-block  " key={index}>
+        <div className="relative inline-block" key={index}>
           <div>
             <button
               onClick={() => toggleDropdown(index)}
@@ -112,7 +109,7 @@ const Dropdown = () => {
                   }
                   className="border rounded-md px-3 py-2 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 >
-                  <option value="">second Option</option>
+                  <option value="">Select an option</option>
                   <option value="&lt;">&lt;</option>
                   <option value="&gt;">&gt;</option>
                   <option value="=">=</option>
@@ -120,6 +117,7 @@ const Dropdown = () => {
                   <option value="&gt;=">&gt;=</option>
                 </select>
               </div>
+
               <input
                 type="number"
                 placeholder="Enter amount"
@@ -134,9 +132,7 @@ const Dropdown = () => {
           ADD
         </button>
       </div>
-          </div>
-          </Formik>
-            </>
+    </div>
   );
 };
 
