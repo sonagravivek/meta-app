@@ -22,6 +22,9 @@ function Navbar() {
             <Link to="/contact" className="text-white mx-4">
               Contact
             </Link>
+            {/* <Link to="/Rules" className="text-white mx-4">
+              Rules
+            </Link> */}
           </div>
         </div>
       </nav>

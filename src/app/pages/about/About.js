@@ -1,23 +1,11 @@
-import { Formik } from "formik";
 import React, { useState } from "react";
-
+import { Field, Formik, Form } from "formik";
+import Schema from "../../../schema/Schema";
 
 const Dropdown = () => {
-  const [dropdowns, setDropdowns] = useState([
-    {
-      isOpen: false,
-      selectedOption: null,
-      showSecondDropdown: false,
-      secondDropdownOption: null,
-    },
-  ]);
-
-  const toggleDropdown = (index) => {
-    const updatedDropdowns = dropdowns.map((dropdown, i) =>
-      i === index ? { ...dropdown, isOpen: !dropdown.isOpen } : dropdown
-    );
-    setDropdowns(updatedDropdowns);
-  };
+  const [dropdowns, setDropdowns] = useState([{}]);
+  const comparisonOptions = ["<", ">", "=", "=<", "=>"];
+  const [handleList, setHandleList] = useState([]);
 
   const handleOptionClick = (index, option) => {
     const updatedDropdowns = dropdowns.map((dropdown, i) =>
@@ -35,11 +23,12 @@ const Dropdown = () => {
   };
 
   const handleSecondDropdownOption = (index, option) => {
-    const updatedDropdowns = dropdowns.map((dropdown, i) =>
-      i === index ? { ...dropdown, secondDropdownOption: option } : dropdown
-    );
-    setDropdowns(updatedDropdowns);
+    const updatedHandleList = [...handleList];
+    updatedHandleList[index] = option;
+
+    setHandleList(updatedHandleList);
   };
+
   const addDropdown = () => {
     setDropdowns([
       ...dropdowns,
@@ -52,92 +41,122 @@ const Dropdown = () => {
     ]);
   };
 
-    return (
-        <>
-      <Formik>  
-    <div className="flex-none">
-      {dropdowns.map((dropdown, index) => (
-        <div className="relative inline-block  " key={index}>
-          <div>
-            <button
-              onClick={() => toggleDropdown(index)}
-              type="button"
-              className="inline-flex justify-center w-full rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-              aria-expanded="true"
-              aria-haspopup="true"
-            >
-              {dropdown.selectedOption || "Dropdown"}
-              <svg
-                className="-mr-1 ml-2 h-5 w-5"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-                aria-hidden="true"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M10.293 13.293a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L10 11.586l-2.293-2.293a1 1 0 00-1.414 1.414l3 3a1 1 0 000 1.414z"
-                  clipRule="evenodd"
-                />
-              </svg>
-            </button>
-          </div>
+  const initialValues = {
+    dropdowns: dropdowns.map(() => ({
+      type: "",
+      condition: "",
+      amount: "",
+    })),
+  };
 
-          {dropdown.isOpen && (
-            <div
-              className="origin-top-right absolute mt-2 w-56 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
-              role="menu"
-              aria-orientation="vertical"
-              aria-labelledby="dropdown-menu-button"
-              tabIndex="-1"
-            >
-              <div className="py-1" role="none">
-                <li
-                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
-                  onClick={() => handleOptionClick(index, "Amount")}
-                >
-                  Amount
-                </li>
-              </div>
-            </div>
-          )}
+  const rulesvalues = (values) => {
+    console.log(values);
+  };
 
-          {dropdown.showSecondDropdown && (
-            <div>
-              <div className="mt-4">
-                <select
-                  value={dropdown.secondDropdownOption || ""}
-                  onChange={(e) =>
-                    handleSecondDropdownOption(index, e.target.value)
-                  }
-                  className="border rounded-md px-3 py-2 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                >
-                  <option value="">second Option</option>
-                  <option value="&lt;">&lt;</option>
-                  <option value="&gt;">&gt;</option>
-                  <option value="=">=</option>
-                  <option value="=&lt;">=&lt;</option>
-                  <option value="&gt;=">&gt;=</option>
-                </select>
-              </div>
-              <input
-                type="number"
-                placeholder="Enter amount"
-                className="border rounded-md px-3 py-2 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-              />
-            </div>
-          )}
-        </div>
-      ))}
-      <div className="mt-3">
-        <button className="bg-green-500 px-1  " onClick={addDropdown}>
+  return (
+    <>
+      <h1 className="text-center text-2xl">Rules </h1>
+      <div className="mt-3 text-right ">
+        <button
+          className="bg-green-500 px-1 rounded-md text-white"
+          onClick={addDropdown}
+        >
           ADD
         </button>
       </div>
-          </div>
-          </Formik>
-            </>
+      <Formik
+        initialValues={initialValues}
+        onSubmit={(values) => rulesvalues(values)}
+        validationSchema={Schema}
+      >
+        {({ handleChange, errors }) => (
+          <Form>
+            <div className="gap-6">
+              {dropdowns?.map((dropdown, index) => (
+                <div className="relative inline-block" key={index}>
+                  <div>
+                    <select
+                      name={`dropdowns[${index}].type`}
+                      onChange={handleChange}
+                      onClick={() => handleOptionClick(index, "Amount")}
+                    >
+                      <option hidden>Rules</option>
+                      <option value="Amount">Amount</option>
+                    </select>
+                  </div>
+                  <div className="text-red-500">{errors.type}</div>
+                  {dropdown.selectedOption === "Amount" && (
+                    <Second
+                      index={index}
+                      Seconddropdown={
+                        errors.dropdowns &&
+                        errors.dropdowns[index] &&
+                        errors.dropdowns[index].condition
+                      }
+                      handleSecondDropdownOption={handleSecondDropdownOption}
+                      comparisonOptions={comparisonOptions}
+                      handleList={handleList}
+                      handleChange={handleChange}
+                      error={
+                        errors.dropdowns &&
+                        errors.dropdowns[index] &&
+                        errors.dropdowns[index].amount
+                      }
+                    />
+                  )}
+                </div>
+              ))}
+            </div>
+            <button
+              type="submit"
+              className="bg-red-500 text-white px-2 rounded-md mt-5"
+            >
+              Submit
+            </button>
+          </Form>
+        )}
+      </Formik>
+    </>
   );
 };
 
+const Second = ({
+  index,
+  handleSecondDropdownOption,
+  comparisonOptions,
+  handleList,
+  handleChange,
+  error,
+  Seconddropdown,
+}) => (
+  <div className="flex-none">
+    <div className="mt-4">
+      <select
+        name={`dropdowns[${index}].condition`}
+        onChange={(e) => {
+          handleChange(e);
+          handleSecondDropdownOption(index, e.target.value);
+        }}
+        error={Seconddropdown}
+        className="border rounded-md px-3 py-2 text-sm text-gray-700 focus:outline-none focus:ring-2"
+      >
+        <option hidden>Second Option</option>
+        {comparisonOptions.map((opt, idx) => (
+          <option key={idx} value={opt} hidden={handleList.includes(opt)}>
+            {opt}
+          </option>
+        ))}
+      </select>
+      {}
+    </div>
+    {error && <div className="text-red-500 text-sm">{Seconddropdown}</div>}
+    <Field
+      name={`dropdowns[${index}].amount`}
+      type="number"
+      placeholder="Enter amount"
+      className="border rounded-md px-3 py-2 text-sm text-gray-700 focus:outline-none"
+    />
+    {<div className="text-red-500 text-sm">{error}</div>}
+  </div>
+);
 export default Dropdown;

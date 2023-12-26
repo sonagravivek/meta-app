@@ -4,6 +4,7 @@ import Home from "../../pages/home/Home";
 import About from "../../pages/about/About";
 import Contact from "../../pages/contact/Contact";
 import Help from "../../pages/help/Help";
+import Rules from "../../pages/Rules/Rules";
 
 const Routing = () => (
   <div className="p-4">
@@ -12,6 +13,7 @@ const Routing = () => (
       <Route path="/about" element={<About />} />
       <Route path="/help" element={<Help />} />
       <Route path="/contact" element={<Contact />} />
+      {/* <Route  path="/Rules" element={<Rules/>}/> */}
     </Routes>
   </div>
 );
