@@ -147,7 +147,6 @@ const Second = ({
           </option>
         ))}
       </select>
-      {}
     </div>
     {error && <div className="text-red-500 text-sm">{Seconddropdown}</div>}
     <Field
