@@ -181,9 +181,7 @@ const Second = ({
             </Field>
           </div>
           {error && (
-            <div className="text-red-500 text-sm mb-4">
-              {Seconddropdown}
-            </div>
+            <div className="text-red-500 text-sm mb-4">{Seconddropdown}</div>
           )}
           <Field
             name={`dropdowns[${index}].amount`}
